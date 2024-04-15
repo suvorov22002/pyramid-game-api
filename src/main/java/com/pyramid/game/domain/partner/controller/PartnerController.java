@@ -1,0 +1,103 @@
+package com.pyramid.game.domain.partner.controller;
+
+import com.pyramid.game.core.pagination.PageDto;
+import com.pyramid.game.core.pagination.PaginationUtils;
+import com.pyramid.game.domain.partner.dto.EnrollmentRequest;
+import com.pyramid.game.domain.partner.dto.PartnerRequest;
+import com.pyramid.game.domain.partner.dto.PartnerResponse;
+import com.pyramid.game.domain.partner.mapper.EnrollmentMapper;
+import com.pyramid.game.domain.partner.mapper.PartnerMapper;
+import com.pyramid.game.domain.partner.model.Enrollment;
+import com.pyramid.game.domain.partner.model.Partner;
+import com.pyramid.game.domain.partner.service.PartnerService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+/**
+ * Created by Suvorov Vassilievitch
+ * Date: 15/04/2024
+ * Time: 14:40
+ * Project Name: pyramid-game-api
+ */
+@RestController
+@RequestMapping("/api/v1/partners")
+@RequiredArgsConstructor
+public class PartnerController {
+
+    private final PartnerService partnerService;
+    private final PartnerMapper mapper;
+    private final EnrollmentMapper enrollmentMapper;
+
+    @PostMapping
+    ResponseEntity<PartnerResponse> subscribePartner(@Valid @RequestBody PartnerRequest partnerRequest) {
+
+        Set<EnrollmentRequest> enrollmentRequests = partnerRequest.enrollments();
+        Partner partner = mapper.toEntity(partnerRequest);
+
+        if(enrollmentRequests != null && !enrollmentRequests.isEmpty()) {
+            Set<Enrollment> enrollments =  enrollmentRequests.stream().map(enrollmentMapper::toEntity)
+                    .collect(Collectors.toSet());
+
+            partner.setEnrollments(enrollments);
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(mapper.toDto(partnerService
+                        .createPartner(partner)));
+    }
+
+    @GetMapping("/all")
+    ResponseEntity<List<PartnerResponse>> listAllPartners() {
+        return ResponseEntity.ok(
+                mapper.toDtoList(partnerService.listAllPartners())
+        );
+    }
+
+    @GetMapping
+    ResponseEntity<PageDto<PartnerResponse>> listAllPartnersPaginated(Pageable pageable){
+        return ResponseEntity.ok(
+                PaginationUtils.convertEntityPageToDtoPage(partnerService.getPartnerPaginated(pageable), mapper::toDtoList)
+        );
+    }
+
+    @GetMapping("/{id}")
+    ResponseEntity<PartnerResponse> searchPartnerId(@PathVariable Long id) {
+
+        return ResponseEntity.ok(mapper.toDto(partnerService.researchPartner(id)));
+
+    }
+
+    @GetMapping("/code/{code}")
+    ResponseEntity<PartnerResponse> searchPartnerCode(@PathVariable String code) {
+
+        return ResponseEntity.ok(mapper.toDto(partnerService.researchPartnerCode(code)));
+
+    }
+
+    @PutMapping("/{id}/{status}")
+    ResponseEntity<PartnerResponse> updatePartnerStatus(@PathVariable("id") Long id, @PathVariable("status") String status) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(mapper.toDto(partnerService.updatePartnerStatus(id, status)));
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<PartnerResponse> updatePartner(@PathVariable Long id, @RequestBody PartnerRequest partnerRequest) {
+
+        return ResponseEntity.ok(
+                mapper.toDto(partnerService.updatePartner(id, mapper.toEntity(partnerRequest)))
+        );
+    }
+}
