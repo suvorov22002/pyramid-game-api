@@ -12,9 +12,7 @@ import com.pyramid.game.domain.partner.model.Partner;
 import com.pyramid.game.domain.partner.service.PartnerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,15 +39,7 @@ public class PartnerController {
     @PostMapping
     ResponseEntity<PartnerResponse> subscribePartner(@Valid @RequestBody PartnerRequest partnerRequest) {
 
-        Set<EnrollmentRequest> enrollmentRequests = partnerRequest.enrollments();
         Partner partner = mapper.toEntity(partnerRequest);
-
-        if(enrollmentRequests != null && !enrollmentRequests.isEmpty()) {
-            Set<Enrollment> enrollments =  enrollmentRequests.stream().map(enrollmentMapper::toEntity)
-                    .collect(Collectors.toSet());
-
-            partner.setEnrollments(enrollments);
-        }
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

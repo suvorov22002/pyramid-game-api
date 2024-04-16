@@ -14,4 +14,6 @@ public class Constants {
 
     public static final String VALUE_SHOULD_NOT_BE_NULL = "Value Should Not Be Null Or Empty";
     public static final String PARTNER_NOT_FOUND = "Partner not found.";
+    public static final String GAME_NOT_FOUND = "Game not found.";
+    public static final String GAME_UNIQUE_CODE = "Code should be unique.";
 }

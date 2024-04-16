@@ -1,5 +1,6 @@
 package com.pyramid.game.domain.partner.mapper;
 
+import com.pyramid.game.core.utils.Constants;
 import com.pyramid.game.domain.jeu.model.Game;
 import com.pyramid.game.domain.jeu.repository.GameRepository;
 import com.pyramid.game.domain.partner.dto.EnrollmentRequest;
@@ -8,6 +9,7 @@ import com.pyramid.game.domain.partner.dto.PartnerRequest;
 import com.pyramid.game.domain.partner.dto.PartnerResponse;
 import com.pyramid.game.domain.partner.model.Enrollment;
 import com.pyramid.game.domain.partner.model.Partner;
+import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -44,6 +46,8 @@ public abstract class EnrollmentMapper {
     public abstract Enrollment update(Enrollment source, @MappingTarget Enrollment target);
 
     protected Game resolveGame(EnrollmentRequest request) {
-        return gameRepository.findByCode(request.game());
+        return gameRepository.findByCode(request.game()).orElseThrow(
+                () -> new EntityNotFoundException(Constants.GAME_NOT_FOUND)
+        );
     }
 }
