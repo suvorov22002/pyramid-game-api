@@ -16,6 +16,8 @@ import java.util.Set;
  * Project Name: pyramid-game-api
  */
 public record PartnerRequest(
+        String codePartner,
+        @MandatoryField
         String designation,
         String localisation,
         String status,

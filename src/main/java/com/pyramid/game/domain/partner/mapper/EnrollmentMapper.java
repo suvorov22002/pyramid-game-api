@@ -9,6 +9,7 @@ import com.pyramid.game.domain.partner.dto.PartnerRequest;
 import com.pyramid.game.domain.partner.dto.PartnerResponse;
 import com.pyramid.game.domain.partner.model.Enrollment;
 import com.pyramid.game.domain.partner.model.Partner;
+import com.pyramid.game.domain.partner.repository.PartnerRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -30,6 +31,8 @@ public abstract class EnrollmentMapper {
 
     @Autowired
     private GameRepository gameRepository;
+    @Autowired
+    private PartnerRepository partnerRepository;
 
     public abstract List<EnrollmentResponse> toDtoList(List<Enrollment> enrollments);
 
@@ -38,6 +41,7 @@ public abstract class EnrollmentMapper {
     public abstract EnrollmentResponse toDto(Enrollment enrollment);
 
     @Mapping(target = "game", expression = "java(resolveGame(request))")
+    @Mapping(target = "partner", expression = "java(resolvePartner(request))")
     public abstract Enrollment toEntity(EnrollmentRequest request);
 
     @Mapping(target = "createdAt", ignore = true)
@@ -48,6 +52,12 @@ public abstract class EnrollmentMapper {
     protected Game resolveGame(EnrollmentRequest request) {
         return gameRepository.findByCode(request.game()).orElseThrow(
                 () -> new EntityNotFoundException(Constants.GAME_NOT_FOUND)
+        );
+    }
+
+    protected Partner resolvePartner(EnrollmentRequest request) {
+        return partnerRepository.findPartnerByCodePartner(request.partner()).orElseThrow(
+                () -> new EntityNotFoundException(Constants.PARTNER_NOT_FOUND)
         );
     }
 }

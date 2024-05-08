@@ -21,6 +21,6 @@ public class PartnerResponse {
     private String localisation;
     private String status;
     private List<String> games;
-    private Long parameters;
+    //private Long parameters;
 
 }

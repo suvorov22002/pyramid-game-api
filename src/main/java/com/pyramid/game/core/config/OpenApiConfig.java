@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         url = "https://pyramid-distribution.com/games"
                 ),
                 description = "OpenApi documentation for Spring Security",
-                title = "OpenApi specification - SUVOROV",
+                title = "OpenApi specification - PYRAMID GAMES",
                 version = "1.0",
                 license = @License(
                         name = "Licence name",

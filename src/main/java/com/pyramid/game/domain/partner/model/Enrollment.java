@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
  * Project Name: pyramid-game-api
  */
 
+@ToString
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 public class Enrollment extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,4 +53,6 @@ public class Enrollment extends BaseEntity {
     private Double bonusRate; // pourcentage du bonus sur la mise
 
     private Double bonusMax; // Montant max pour lequel le b
+
+    private Boolean inheritConfig = Boolean.TRUE; // Check if config come from global param or not
 }

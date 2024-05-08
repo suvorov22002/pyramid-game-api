@@ -25,6 +25,8 @@
 		<instancio-junit.version>2.11.0</instancio-junit.version>
 		<postgresql.version>42.6.1</postgresql.version>
 		<h2.version>2.2.224</h2.version>
+		<liquibase-core.version>4.20.0</liquibase-core.version>
+		<vault.version>3.0.4</vault.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,6 +43,13 @@
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<version>${liquibase-core.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -116,6 +125,11 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.vault</groupId>
+			<artifactId>spring-vault-core</artifactId>
+			<version>${vault.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -130,6 +144,15 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>${liquibase-core.version}</version>
+				<configuration>
+					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
+
 				</configuration>
 			</plugin>
 			<plugin>

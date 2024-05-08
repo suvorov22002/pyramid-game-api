@@ -1,10 +1,13 @@
 package com.pyramid.game.domain.jeu.service.impl;
 
 import com.pyramid.game.core.utils.Constants;
-import com.pyramid.game.domain.jeu.GameMapper;
+import com.pyramid.game.domain.jeu.mapper.GameMapper;
 import com.pyramid.game.domain.jeu.model.Game;
+import com.pyramid.game.domain.jeu.model.enums.GameStatus;
 import com.pyramid.game.domain.jeu.repository.GameRepository;
 import com.pyramid.game.domain.jeu.service.GameService;
+import com.pyramid.game.domain.partner.model.Partner;
+import com.pyramid.game.domain.partner.model.enums.PartnerStatus;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -72,5 +75,15 @@ public class GameServiceImpl implements GameService {
         Game existingGame = researchGameById(id);
         Game updatedGame = gameMapper.update(game, existingGame);
         return gameRepo.save(updatedGame);
+    }
+
+    @Override
+    public Game updateGameStatus(Long id, String status) {
+
+        Game game = researchGameById(id);
+        String enumString = "TRUE".equalsIgnoreCase(status) ? "ACTIVE" : "INACTIVE";
+        game.setStatus(GameStatus.valueOf(enumString));
+        return gameRepo.save(game);
+
     }
 }

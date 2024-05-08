@@ -2,14 +2,15 @@ package com.pyramid.game.domain.partner.controller;
 
 import com.pyramid.game.core.pagination.PageDto;
 import com.pyramid.game.core.pagination.PaginationUtils;
-import com.pyramid.game.domain.partner.dto.EnrollmentRequest;
 import com.pyramid.game.domain.partner.dto.PartnerRequest;
 import com.pyramid.game.domain.partner.dto.PartnerResponse;
 import com.pyramid.game.domain.partner.mapper.EnrollmentMapper;
 import com.pyramid.game.domain.partner.mapper.PartnerMapper;
-import com.pyramid.game.domain.partner.model.Enrollment;
 import com.pyramid.game.domain.partner.model.Partner;
 import com.pyramid.game.domain.partner.service.PartnerService;
+import com.pyramid.game.domain.utils.RequestResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 /**
  * Created by Suvorov Vassilievitch
@@ -30,17 +31,22 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/partners")
 @RequiredArgsConstructor
+@CrossOrigin
+@Tag(name = "Partner Management")
 public class PartnerController {
 
     private final PartnerService partnerService;
     private final PartnerMapper mapper;
     private final EnrollmentMapper enrollmentMapper;
 
+    @Operation(
+            description = "Endpoint for partner creation",
+            summary = "This is a summary for management post endpoint"
+    )
     @PostMapping
     ResponseEntity<PartnerResponse> subscribePartner(@Valid @RequestBody PartnerRequest partnerRequest) {
 
         Partner partner = mapper.toEntity(partnerRequest);
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(mapper.toDto(partnerService

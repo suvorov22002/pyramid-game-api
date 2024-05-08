@@ -21,4 +21,6 @@ public interface GameService {
     void deleteGame(Long id);
     @Modifying
     Game updateGame(Long id, Game game);
+    @Modifying
+    Game updateGameStatus(Long id, String status);
 }

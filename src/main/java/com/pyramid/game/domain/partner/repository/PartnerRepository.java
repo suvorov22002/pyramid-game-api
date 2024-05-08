@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface PartnerRepository extends JpaRepository<Partner, Long> {
     Page<Partner> findAllByOrderByCreatedAtDesc(Pageable pageable);
     Optional<Partner> findPartnerByCodePartner(String code);
+    Optional<Partner> findPartnerByDesignation(String designation);
 }

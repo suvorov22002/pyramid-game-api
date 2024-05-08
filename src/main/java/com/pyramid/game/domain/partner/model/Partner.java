@@ -37,6 +37,8 @@ public class Partner extends BaseEntity {
     @MandatoryField
     private String codePartner;
 
+    @Column(unique = true, nullable = false)
+    @MandatoryField
     private String designation;
 
     private String localisation;

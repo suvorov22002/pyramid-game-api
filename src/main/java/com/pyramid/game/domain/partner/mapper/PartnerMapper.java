@@ -2,7 +2,6 @@ package com.pyramid.game.domain.partner.mapper;
 
 import com.pyramid.game.domain.partner.dto.PartnerRequest;
 import com.pyramid.game.domain.partner.dto.PartnerResponse;
-import com.pyramid.game.domain.partner.model.Enrollment;
 import com.pyramid.game.domain.partner.model.Parameters;
 import com.pyramid.game.domain.partner.model.Partner;
 import com.pyramid.game.domain.partner.repository.ParametersRepository;
@@ -12,9 +11,7 @@ import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,7 +29,7 @@ public abstract class PartnerMapper {
     public abstract List<PartnerResponse> toDtoList(List<Partner> partners);
 
     @Mapping(target = "games", expression = "java(extraGamesCode(partner))")
-    @Mapping(target = "parameters", expression = "java(partner.getParameters().getId())")
+    //@Mapping(target = "parameters", expression = "java(partner.getParameters().getId())")
     public abstract PartnerResponse toDto(Partner partner);
 
     @Mapping(target = "enrollments", ignore = true)

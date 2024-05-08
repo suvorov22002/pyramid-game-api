@@ -1,11 +1,14 @@
 package com.pyramid.game.domain.jeu.controller;
 
-import com.pyramid.game.domain.jeu.GameMapper;
+import com.pyramid.game.domain.jeu.mapper.GameMapper;
 import com.pyramid.game.domain.jeu.dto.GameRequest;
 import com.pyramid.game.domain.jeu.dto.GameResponse;
 import com.pyramid.game.domain.jeu.service.GameService;
+import com.pyramid.game.domain.partner.dto.PartnerResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("/api/v1/games")
 @RequiredArgsConstructor
+@CrossOrigin
+@Tag(name = "Game Management")
 public class GameController {
 
     private final GameService gameService;
@@ -64,6 +69,14 @@ public class GameController {
     ResponseEntity<GameResponse> updateGame(@RequestBody GameRequest gameRequest, @PathVariable Long id) {
         return ResponseEntity
                 .ok(gameMapper.toDto(gameService.updateGame(id, gameMapper.toEntity(gameRequest))));
+    }
+
+    @PutMapping("/{id}/{status}")
+    ResponseEntity<GameResponse> updateGameStatus(@PathVariable("id") Long id, @PathVariable("status") String status) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(gameMapper.toDto(gameService.updateGameStatus(id, status)));
     }
 
 }

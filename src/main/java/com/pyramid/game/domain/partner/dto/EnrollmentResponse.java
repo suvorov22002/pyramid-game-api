@@ -26,4 +26,5 @@ public class EnrollmentResponse {
     private Double percent;
     private Double bonusRate;
     private Double bonusMax;
+    private Boolean inheritConfig;
 }

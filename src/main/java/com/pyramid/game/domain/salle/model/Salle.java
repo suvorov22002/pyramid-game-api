@@ -1,6 +1,7 @@
 package com.pyramid.game.domain.salle.model;
 
 import com.pyramid.game.core.utils.BaseEntity;
+import com.pyramid.game.core.validation.MandatoryField;
 import com.pyramid.game.domain.partner.model.Partner;
 import com.pyramid.game.domain.salle.model.enums.SalleStatus;
 import jakarta.persistence.*;
@@ -18,6 +19,7 @@ import lombok.experimental.FieldNameConstants;
 @Getter
 @Setter
 @FieldNameConstants
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"codeSalle", "partner_id"}))
 @Entity(name = "PYRAM_SALLE")
 public class Salle extends BaseEntity {
 
@@ -25,9 +27,17 @@ public class Salle extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private SalleStatus status = SalleStatus.ACTIVATE;
+    @MandatoryField
+    private String codeSalle;
 
+    private String designation;
+
+    private String localisation;
+
+    @Enumerated(EnumType.STRING)
+    private SalleStatus status = SalleStatus.ACTIVE;
+
+    @MandatoryField
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Partner partner;

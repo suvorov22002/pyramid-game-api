@@ -8,15 +8,14 @@ import com.pyramid.game.domain.partner.model.enums.PartnerStatus;
 import com.pyramid.game.domain.partner.repository.ParametersRepository;
 import com.pyramid.game.domain.partner.repository.PartnerRepository;
 import com.pyramid.game.domain.partner.service.PartnerService;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +37,13 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public Partner createPartner(Partner partner) {
 
-        partner.setCodePartner(generateCode());
+        partnerRepo.findPartnerByDesignation(partner.getDesignation()).ifPresent(
+                p -> {
+                    throw new EntityExistsException(Constants.PARTNER_ALREADY_EXIST);
+                }
+        );
+
+        partner.setCodePartner("P" + Constants.generateCode());
         partner.setCreatedAt(LocalDateTime.now());
         Parameters parameters = new Parameters();
 
@@ -64,7 +69,8 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public Partner updatePartnerStatus(Long id, String status) {
         Partner partner = researchPartner(id);
-        partner.setStatus(PartnerStatus.valueOf(status));
+        String enumString = "TRUE".equalsIgnoreCase(status) ? "ACTIVE" : "INACTIVE";
+        partner.setStatus(PartnerStatus.valueOf(enumString));
         return partnerRepo.save(partner);
     }
 
@@ -100,11 +106,11 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerRepo.findAllByOrderByCreatedAtDesc(pageable);
     }
 
-    private String generateCode(){
+    @Override
+    public Partner researchPartnerDesignation(String designation) {
+        return partnerRepo.findPartnerByDesignation(designation).orElseThrow(
+                () -> new EntityNotFoundException(Constants.PARTNER_NOT_FOUND)
+        );
 
-        String sb = RandomStringUtils.randomAlphanumeric(20).toUpperCase() +
-                Instant.now().toEpochMilli();
-
-        return sb.toUpperCase();
     }
 }

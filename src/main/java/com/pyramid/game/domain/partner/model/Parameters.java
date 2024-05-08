@@ -35,8 +35,8 @@ public class Parameters extends BaseEntity {
     @Max(300)
     private Double miseMin = 200.0;
 
-    @Min(10000)
-    private Double miseMax = 10_000.0;
+    @Min(5000)
+    private Double miseMax = 5_000.0;
 
     private Double percent = 0.92;
 

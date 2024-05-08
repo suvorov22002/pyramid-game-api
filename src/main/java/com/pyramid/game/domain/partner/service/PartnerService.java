@@ -23,4 +23,5 @@ public interface PartnerService {
     Partner researchPartnerCode(String code);
     List<Partner> listAllPartners();
     Page<Partner> getPartnerPaginated(Pageable pageable);
+    Partner researchPartnerDesignation(String designation);
 }

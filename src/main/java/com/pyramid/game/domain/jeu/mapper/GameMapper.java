@@ -1,4 +1,4 @@
-package com.pyramid.game.domain.jeu;
+package com.pyramid.game.domain.jeu.mapper;
 
 import com.pyramid.game.domain.jeu.dto.GameRequest;
 import com.pyramid.game.domain.jeu.dto.GameResponse;
