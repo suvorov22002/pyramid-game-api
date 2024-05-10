@@ -1,4 +1,4 @@
-package com.pyramid.game.configuration;
+package com.pyramid.game.core.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
@@ -13,7 +13,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 /**
  * Created by Suvorov Vassilievitch
  * Date: 14/04/2024
- * Time: 20:11
+ * Time: 22:17
  * Project Name: pyramid-game-api
  */
 
@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         url = "https://pyramid-distribution.com/games"
                 ),
                 description = "OpenApi documentation for Spring Security",
-                title = "OpenApi specification - SUVOROV",
+                title = "OpenApi specification - PYRAMID GAMES",
                 version = "1.0",
                 license = @License(
                         name = "Licence name",
@@ -57,5 +57,5 @@ import io.swagger.v3.oas.annotations.servers.Server;
         bearerFormat = "JWT",
         in = SecuritySchemeIn.HEADER
 )
-public class OnpenApiConfig {
+public class OpenApiConfig {
 }

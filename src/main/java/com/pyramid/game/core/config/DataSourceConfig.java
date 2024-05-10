@@ -1,4 +1,4 @@
-package com.pyramid.game.configuration;
+package com.pyramid.game.core.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,10 +10,9 @@ import org.springframework.context.annotation.Primary;
 /**
  * Created by Suvorov Vassilievitch
  * Date: 14/04/2024
- * Time: 20:25
+ * Time: 22:16
  * Project Name: pyramid-game-api
  */
-
 @Configuration
 public class DataSourceConfig {
 
