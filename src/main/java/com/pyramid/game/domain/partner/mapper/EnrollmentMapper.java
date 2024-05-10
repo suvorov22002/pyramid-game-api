@@ -36,7 +36,7 @@ public abstract class EnrollmentMapper {
 
     public abstract List<EnrollmentResponse> toDtoList(List<Enrollment> enrollments);
 
-    @Mapping(target = "partner", expression = "java(enrollment.getPartner().getId())")
+    @Mapping(target = "partner", expression = "java(enrollment.getPartner().getDesignation())")
     @Mapping(target = "game", expression = "java(enrollment.getGame().getCode())")
     public abstract EnrollmentResponse toDto(Enrollment enrollment);
 

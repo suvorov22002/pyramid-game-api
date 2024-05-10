@@ -49,9 +49,15 @@ public class EnrollmentController {
     }
 
     @GetMapping
-    ResponseEntity<List<EnrollmentResponse>> listAllPartnerEnroll(){
+    ResponseEntity<List<EnrollmentResponse>> listAllEnroll(){
         return ResponseEntity
                 .ok(mapper.toDtoList(enrollmentService.allEnrollments()));
+    }
+
+    @GetMapping("/partner/{partner}")
+    ResponseEntity<List<EnrollmentResponse>> listAllPartnerEnroll(@PathVariable String partner){
+        return ResponseEntity
+                .ok(mapper.toDtoList(enrollmentService.selectEnrollPartner(partner)));
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,7 @@
 package com.pyramid.game.domain.partner.service;
 
 import com.pyramid.game.domain.partner.model.Enrollment;
+import com.pyramid.game.domain.partner.model.Partner;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface EnrollmentService {
     List<Enrollment> allEnrollments();
     void unsubscribe(Long id);
     Enrollment updateEnrollment(Long id, Enrollment enrollment);
+    List<Enrollment> selectEnrollPartner(String partner);
 }

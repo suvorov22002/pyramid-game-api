@@ -45,6 +45,6 @@ public abstract class AppUserMapper {
     }
 
     protected Partner resolvePartner(AppUserRequest request) {
-        return partnerRepository.findPartnerByCodePartner(request.partnerCode()).orElse(null);
+        return partnerRepository.findPartnerByDesignation(request.partnerCode()).orElse(null);
     }
 }

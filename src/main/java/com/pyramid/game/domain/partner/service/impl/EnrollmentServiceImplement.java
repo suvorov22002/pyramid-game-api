@@ -3,8 +3,10 @@ package com.pyramid.game.domain.partner.service.impl;
 import com.pyramid.game.core.utils.Constants;
 import com.pyramid.game.domain.partner.mapper.EnrollmentMapper;
 import com.pyramid.game.domain.partner.model.Enrollment;
+import com.pyramid.game.domain.partner.model.Partner;
 import com.pyramid.game.domain.partner.model.enums.EnrollStatus;
 import com.pyramid.game.domain.partner.repository.EnrollmentRepository;
+import com.pyramid.game.domain.partner.repository.PartnerRepository;
 import com.pyramid.game.domain.partner.service.EnrollmentService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,6 +31,7 @@ public class EnrollmentServiceImplement implements EnrollmentService {
 
     private final EnrollmentRepository enrollmentRepo;
     private final EnrollmentMapper enrollmentMapper;
+    private final PartnerRepository partnerRepo;
 
     @Override
     public Enrollment subscribre(Enrollment enrollment) {
@@ -75,5 +78,11 @@ public class EnrollmentServiceImplement implements EnrollmentService {
         );
         Enrollment enrollmentUpdate = enrollmentMapper.update(enrollment,existingEnroll);
         return enrollmentRepo.save(enrollmentUpdate);
+    }
+
+    @Override
+    public List<Enrollment> selectEnrollPartner(String partner) {
+        Partner part = partnerRepo.findPartnerByDesignation(partner).orElse(null);
+        return enrollmentRepo.findEnrollmentByPartner(part);
     }
 }

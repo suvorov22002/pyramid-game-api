@@ -18,6 +18,5 @@ public record AppUserRequest (
         String partnerCode,
         String phoneNumber,
         String role,
-        String email,
-        Boolean enabled
+        String email
 ) { }

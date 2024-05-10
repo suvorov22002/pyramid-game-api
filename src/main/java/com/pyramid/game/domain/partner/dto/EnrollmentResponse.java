@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class EnrollmentResponse {
 
     private Long id;
-    private Long partner;
+    private String partner;
     private String game;
     private LocalDateTime enrollAt;
     private LocalDateTime deregistrationAt;

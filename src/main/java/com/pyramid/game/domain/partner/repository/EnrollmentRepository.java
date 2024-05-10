@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
     Optional<Enrollment> findEnrollmentByPartnerAndGame(Partner partner, Game game);
+    List<Enrollment> findEnrollmentByPartner(Partner partner);
 }

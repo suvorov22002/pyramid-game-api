@@ -26,6 +26,7 @@ public class Constants {
     public static final String USER_NOT_FOUND = "User not found.";
     public static final String ROOM_NOT_FOUND = "Room not found.";
     public static final String PARTNER_ALREADY_EXIST = "Partner already exists";
+    public static final String EVENT_NOT_FOUND = "Event not found";
 
     public static String generateCode(){
         String sb = RandomStringUtils.randomAlphanumeric(10).toUpperCase() +
