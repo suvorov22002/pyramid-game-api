@@ -1,8 +1,12 @@
 package com.pyramid.game.domain.salle.service.impl;
 
 import com.pyramid.game.core.utils.Constants;
+import com.pyramid.game.domain.evenement.model.Evenement;
+import com.pyramid.game.domain.evenement.repository.EvenementRepository;
+import com.pyramid.game.domain.partner.model.Enrollment;
 import com.pyramid.game.domain.partner.model.Partner;
 import com.pyramid.game.domain.partner.model.enums.PartnerStatus;
+import com.pyramid.game.domain.partner.repository.EnrollmentRepository;
 import com.pyramid.game.domain.partner.repository.PartnerRepository;
 import com.pyramid.game.domain.salle.mapper.SalleMapper;
 import com.pyramid.game.domain.salle.model.Salle;
@@ -36,6 +40,8 @@ public class SalleServiceImplement implements SalleService {
     private final SalleRepository salleRepo;
     private final PartnerRepository partnerRepo;
     private final SalleMapper salleMapper;
+    private final EnrollmentRepository enrollmentRepo;
+    private final EvenementRepository evenementRepo;
 
     @Override
     public Salle createRoom(Salle salle) {
@@ -87,6 +93,17 @@ public class SalleServiceImplement implements SalleService {
                         () -> new EntityNotFoundException(Constants.ROOM_NOT_FOUND)
                 );
 
+    }
+
+    @Override
+    public Salle searchPartnerDesignation(String partnerCode, String designation) {
+        Partner partner = partnerRepo.findPartnerByCodePartner(partnerCode)
+                .orElseThrow(() -> new EntityNotFoundException(Constants.PARTNER_NOT_FOUND));
+
+        return salleRepo.findSalleByPartnerAndDesignation(partner, designation)
+                .orElseThrow(
+                        () -> new EntityNotFoundException(Constants.ROOM_NOT_FOUND)
+                );
     }
 
     @Override

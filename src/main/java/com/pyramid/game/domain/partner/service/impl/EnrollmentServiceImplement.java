@@ -1,6 +1,8 @@
 package com.pyramid.game.domain.partner.service.impl;
 
 import com.pyramid.game.core.utils.Constants;
+import com.pyramid.game.domain.evenement.model.Evenement;
+import com.pyramid.game.domain.evenement.repository.EvenementRepository;
 import com.pyramid.game.domain.partner.mapper.EnrollmentMapper;
 import com.pyramid.game.domain.partner.model.Enrollment;
 import com.pyramid.game.domain.partner.model.Partner;
@@ -8,6 +10,8 @@ import com.pyramid.game.domain.partner.model.enums.EnrollStatus;
 import com.pyramid.game.domain.partner.repository.EnrollmentRepository;
 import com.pyramid.game.domain.partner.repository.PartnerRepository;
 import com.pyramid.game.domain.partner.service.EnrollmentService;
+import com.pyramid.game.domain.salle.model.Salle;
+import com.pyramid.game.domain.salle.repository.SalleRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -32,6 +36,8 @@ public class EnrollmentServiceImplement implements EnrollmentService {
     private final EnrollmentRepository enrollmentRepo;
     private final EnrollmentMapper enrollmentMapper;
     private final PartnerRepository partnerRepo;
+    private final SalleRepository salleRepo;
+    private final EvenementRepository evenementRepo;
 
     @Override
     public Enrollment subscribre(Enrollment enrollment) {
@@ -41,6 +47,21 @@ public class EnrollmentServiceImplement implements EnrollmentService {
                 .ifPresent(
                         enroll -> { throw new EntityExistsException(Constants.ENROLLMENT_GAME_EXIST); }
                 );
+
+        // Room already exist, so list and create each event for corresponding game
+        List<Salle> salles = salleRepo.findSalleByPartner(enrollment.getPartner());
+        Evenement evenement;
+
+        for (Salle salle : salles) {
+
+            evenement = new Evenement();
+            evenement.setNumeroTirage(1L);
+            evenement.setGame(enrollment.getGame());
+            evenement.setCreatedAt(LocalDateTime.now());
+            evenement.setSalle(salle);
+            evenementRepo.save(evenement);
+
+        }
         enrollment.setEnrollAt(LocalDateTime.now());
         enrollment.setCreatedAt(LocalDateTime.now());
         return enrollmentRepo.save(enrollment);

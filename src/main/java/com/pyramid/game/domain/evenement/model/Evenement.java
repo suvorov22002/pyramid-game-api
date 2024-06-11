@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldNameConstants
+@Table(indexes = {
+        @Index(name = "numero_tirage_idx", columnList = "game_code, numero_tirage")
+})
 @Entity(name = "PYRAM_EVENT")
 public class Evenement extends BaseEntity {
 
@@ -48,9 +51,9 @@ public class Evenement extends BaseEntity {
     @MandatoryField
     private Long numeroTirage;
 
-    private Long codeBonus;
+    private Long codeBonus = 1L;
 
-    private Double montantBonus;
+    private Double montantBonus = 0d;
 
     private Integer multiplicateur = 1;
 

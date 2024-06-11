@@ -18,6 +18,7 @@ public interface SalleService {
 
     List<Salle> searchRoomCode(String code);
     Salle searchPartnerRoomCode(String partnerCode, String code);
+    Salle searchPartnerDesignation(String partnerCode, String designation);
     @Modifying
     Salle updateSalleInfo(Long id, Salle Salle);
     void deleteSalle(Long id);

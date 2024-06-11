@@ -1,0 +1,287 @@
+[
+  {
+    "game": "dog",
+    "values": [
+      {
+        "name": "single",
+        "value": {
+          "code": "single",
+          "designation": "un chien"
+        }
+      },
+      {
+        "name": "straight",
+        "value": {
+          "code": "single",
+          "designation": "un chien"
+        }
+      }
+    ]
+  },
+  {
+    "game": "keno",
+    "values": [
+      {
+        "name": "num10",
+        "value": {
+          "choice": "1",
+          "code": "num10",
+          "designation": "10 numéros",
+          "cote": "0_0_0_1_2_3_5_10_200_2000_10000"
+        }
+      },
+      {
+        "name": "num9",
+        "value": {
+          "choice": "1",
+          "code": "num9",
+          "designation": "9 numéros",
+          "cote": "0_0_0_1_2_3_25_100_1500_9000"
+        }
+      },
+      {
+        "name": "num8",
+        "value": {
+          "choice": "1",
+          "code": "num8",
+          "designation": "8 numéros",
+          "cote": "0_0_0_1_2_6_50_1200_8000"
+        }
+      },
+      {
+        "name": "num7",
+        "value": {
+          "choice": "1",
+          "code": "num7",
+          "designation": "7 numéros",
+          "cote": "0_0_0_1_3_30_220_3000"
+        }
+      },
+      {
+        "name": "num6",
+        "value": {
+          "choice": "1",
+          "code": "num6",
+          "designation": "6 numéros",
+          "cote": "0_0_1_2_3_25_800"
+        }
+      },
+      {
+        "name": "num5",
+        "value": {
+          "choice": "1",
+          "code": "num5",
+          "designation": "5 numéros",
+          "cote": "0_0_1_2_8_500"
+        }
+      },
+      {
+        "name": "num4",
+        "value": {
+          "choice": "1",
+          "code": "num4",
+          "designation": "4 numéros",
+          "cote": "0_0_2_4_75"
+        }
+      },
+      {
+        "name": "num3",
+        "value": {
+          "choice": "1",
+          "code": "num3",
+          "designation": "3 numéros",
+          "cote": "0_1_2_10"
+        }
+      },
+      {
+        "name": "num2",
+        "value": {
+          "choice": "1",
+          "code": "num2",
+          "designation": "2 numéros",
+          "cote": "0_1_8"
+        }
+      },
+      {
+        "name": "numOut",
+        "value": {
+          "choice": "2",
+          "code": "numOut",
+          "designation": "Non sortants",
+          "cote": "0_1.2_1.6_2_2.7_3.7_5_7_9.5_13_18"
+        }
+      },
+      {
+        "name": "numAll",
+        "value": {
+          "choice": "2",
+          "code": "numAll",
+          "designation": "Sortants",
+          "cote": "0_3.6_14_60_275_1400_6500"
+        }
+      },
+      {
+        "name": "num1p",
+        "value": {
+          "choice": "0",
+          "code": "num1p",
+          "designation": "1er numéro pair",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "num1ip",
+        "value": {
+          "choice": "0",
+          "code": "num1ip",
+          "designation": "1er numéro impair",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "num20p",
+        "value": {
+          "choice": "0",
+          "code": "num20p",
+          "designation": "20eme numéro pair",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "num20ip",
+        "value": {
+          "choice": "0",
+          "code": "num20ip",
+          "designation": "20eme numéro impair",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "nums5m",
+        "value": {
+          "choice": "0",
+          "code": "nums5m",
+          "designation": "Somme cinq 1er < 202.5",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "nums5p",
+        "value": {
+          "choice": "0",
+          "code": "nums5p",
+          "designation": "Somme cinq 1er > 202.5",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "nums20m",
+        "value": {
+          "choice": "0",
+          "code": "nums20m",
+          "designation": "Somme totale < 810.5",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "nums20p",
+        "value": {
+          "choice": "0",
+          "code": "nums20p",
+          "designation": "Somme totale > 810.5",
+          "cote": "1.87"
+        }
+      },
+      {
+        "name": "num1cv",
+        "value": {
+          "choice": "0",
+          "code": "num1cv",
+          "designation": "1ere boule verte",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "num1cb",
+        "value": {
+          "choice": "0",
+          "code": "num1cb",
+          "designation": "1ere boule bleu",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "num1cr",
+        "value": {
+          "choice": "0",
+          "code": "num1cr",
+          "designation": "1ere boule rouge",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "num1co",
+        "value": {
+          "choice": "0",
+          "code": "num1co",
+          "designation": "1ere boule orange",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "num20cv",
+        "value": {
+          "choice": "0",
+          "code": "num20cv",
+          "designation": "20eme boule verte",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "num20cb",
+        "value": {
+          "choice": "0",
+          "code": "num20cb",
+          "designation": "20eme boule bleu",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "num20cr",
+        "value": {
+          "choice": "0",
+          "code": "num20cr",
+          "designation": "20eme boule rouge",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "num20co",
+        "value": {
+          "choice": "0",
+          "code": "num20co",
+          "designation": "20eme boule orange",
+          "cote": "3.80"
+        }
+      },
+      {
+        "name": "numS40",
+        "value": {
+          "choice": "0",
+          "code": "numS40",
+          "designation": "1er numéro < 40.5",
+          "cote": "1.85"
+        }
+      },
+      {
+        "name": "numI40",
+        "value": {
+          "choice": "0",
+          "code": "numI40",
+          "designation": "1er numéro > 40.5",
+          "cote": "1.85"
+        }
+      }
+    ]
+  }
+]
