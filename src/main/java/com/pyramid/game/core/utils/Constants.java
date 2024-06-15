@@ -35,6 +35,17 @@ public class Constants {
     public static final String EVENT_NOT_UNKNOWNDRAW = "Event not recognize";
     public static final String BET_UNKNOWN = "Bet not recognize";
     public static final String WITHDRAW_NOT_FOUND = "Ticket de paiement introuvable";
+    public static final String SHIFT_NOT_FOUND = "Shift not open yet.";
+    public static final String MOUVEMENT_NOT_FOUND = "Movement not open yet.";
+    public static final String STAT_KENO = """
+                SELECT COUNT(id) AS totalSlip,  COALESCE(sum(montant_mise),0) AS totalPayin 
+                FROM PYRAM_BETKENO 
+                WHERE 
+                UPPER(cashier_login)=UPPER(?1) 
+                AND UPPER(code_partner)=UPPER(?2) 
+                AND UPPER(salle)=UPPER(?3) 
+                AND created_at BETWEEN ?4 AND ?5
+            """;
 
     public static String generateCode(){
         String sb = RandomStringUtils.randomAlphanumeric(10).toUpperCase() +

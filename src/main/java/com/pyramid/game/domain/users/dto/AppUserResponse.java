@@ -20,4 +20,5 @@ public class AppUserResponse {
     private String role;
     private Boolean enabled;
     private String phoneNumber;
+    private Double balance;
 }

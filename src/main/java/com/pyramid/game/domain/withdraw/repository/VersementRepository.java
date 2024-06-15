@@ -12,10 +12,10 @@ import java.util.Optional;
 @Repository
 public interface VersementRepository extends JpaRepository<Versement, Long> {
 
-    List<Versement> findByLoginAndCodePartner(String login, String partner);
-    List<Versement> findByLoginAndCodePartnerAndCreatedAtBetween(String login, String partner, LocalDateTime start, LocalDateTime end);
-    List<Versement> findByLoginAndCodePartnerAndSalleAndCreatedAtBetween(String login, String partner, String salle, LocalDateTime start, LocalDateTime end);
-    List<Versement> findByCodePartnerAndCreatedAtBetween(String partner, LocalDateTime start, LocalDateTime end);
-    List<Versement> findBySalleAndCodePartnerAndCreatedAtBetween(String salle, String partner, LocalDateTime start, LocalDateTime end);
+    List<Versement> findByLoginIgnoreCaseAndCodePartnerIgnoreCase(String login, String partner);
+    List<Versement> findByLoginIgnoreCaseAndCodePartnerIgnoreCaseAndCreatedAtBetween(String login, String partner, LocalDateTime start, LocalDateTime end);
+    List<Versement> findByLoginIgnoreCaseAndCodePartnerIgnoreCaseAndSalleIgnoreCaseAndCreatedAtBetween(String login, String partner, String salle, LocalDateTime start, LocalDateTime end);
+    List<Versement> findByCodePartnerIgnoreCaseAndCreatedAtBetween(String partner, LocalDateTime start, LocalDateTime end);
+    List<Versement> findBySalleIgnoreCaseAndCodePartnerIgnoreCaseAndCreatedAtBetween(String salle, String partner, LocalDateTime start, LocalDateTime end);
     Optional<Versement> findByNumeroTicket(Long numeroTicket);
 }

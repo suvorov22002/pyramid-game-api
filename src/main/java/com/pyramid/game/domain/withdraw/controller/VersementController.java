@@ -46,7 +46,7 @@ public class VersementController {
     }
 
     @GetMapping("/partner/{partner}/{start}/{end}")
-    ResponseEntity<List<VersementResponse>> listAllUserWithDrawalDated(@PathVariable String partner
+    ResponseEntity<List<VersementResponse>> listAllPartnerWithDrawalDated(@PathVariable String partner
             , @PathVariable LocalDateTime start, @PathVariable LocalDateTime end){
         return ResponseEntity.ok(mapper.toDtoList(versementService.listAllPartnerDrawDated(partner, start, end)));
     }

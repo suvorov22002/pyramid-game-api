@@ -27,27 +27,27 @@ public class VersementServiceImpl implements VersementService {
 
     @Override
     public List<Versement> listAllUserDraw(String login, String partner) {
-        return versementRepo.findByLoginAndCodePartner(login, partner);
+        return versementRepo.findByLoginIgnoreCaseAndCodePartnerIgnoreCase(login, partner);
     }
 
     @Override
     public List<Versement> listAllUserDrawDated(String login, String partner, LocalDateTime start, LocalDateTime end) {
-        return versementRepo.findByLoginAndCodePartnerAndCreatedAtBetween(login, partner, start, end);
+        return versementRepo.findByLoginIgnoreCaseAndCodePartnerIgnoreCaseAndCreatedAtBetween(login, partner, start, end);
     }
 
     @Override
     public List<Versement> listAllUserDrawRoomDated(String login, String partner, String salle, LocalDateTime start, LocalDateTime end) {
-        return versementRepo.findByLoginAndCodePartnerAndSalleAndCreatedAtBetween(login, partner, salle, start, end);
+        return versementRepo.findByLoginIgnoreCaseAndCodePartnerIgnoreCaseAndSalleIgnoreCaseAndCreatedAtBetween(login, partner, salle, start, end);
     }
 
     @Override
     public List<Versement> listAllPartnerDrawDated(String partner, LocalDateTime start, LocalDateTime end) {
-        return versementRepo.findByCodePartnerAndCreatedAtBetween(partner, start, end);
+        return versementRepo.findByCodePartnerIgnoreCaseAndCreatedAtBetween(partner, start, end);
     }
 
     @Override
     public List<Versement> listAllPartnerDrawRoomDated(String salle, String partner, LocalDateTime start, LocalDateTime end) {
-        return versementRepo.findBySalleAndCodePartnerAndCreatedAtBetween(salle, partner, start, end);
+        return versementRepo.findBySalleIgnoreCaseAndCodePartnerIgnoreCaseAndCreatedAtBetween(salle, partner, start, end);
     }
 
     @Override

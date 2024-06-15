@@ -8,6 +8,7 @@ import com.pyramid.game.domain.bet.dto.BetKenoResponse;
 import com.pyramid.game.domain.bet.mapper.BetKenoMapper;
 import com.pyramid.game.domain.bet.model.BetKeno;
 import com.pyramid.game.domain.bet.service.BetKenoService;
+import com.pyramid.game.domain.withdraw.dto.VersementResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -80,17 +82,17 @@ public class BetKenoController {
         );
     }
 
-    @GetMapping("/all/cashier/{login}")
-    ResponseEntity<List<BetKenoResponse>> listAllCashierBetKeno(@PathVariable String login) {
+    @GetMapping("/all/cashier/{login}/{partner}")
+    ResponseEntity<List<BetKenoResponse>> listAllCashierBetKeno(@PathVariable String login, @PathVariable String partner) {
         return ResponseEntity.ok(
-                mapper.toDtoList(betService.searchBetCashier(login))
+                mapper.toDtoList(betService.searchBetCashier(login, partner))
         );
     }
 
-    @GetMapping("/cashier/{login}")
-    ResponseEntity<PageDto<BetKenoResponse>> listAllCashierBetKenoPaginated(@PathVariable String login, Pageable pageable) {
+    @GetMapping("/cashier/{login}/{partner}")
+    ResponseEntity<PageDto<BetKenoResponse>> listAllCashierBetKenoPaginated(@PathVariable String login, @PathVariable String partner, Pageable pageable) {
         return ResponseEntity.ok(
-                PaginationUtils.convertEntityPageToDtoPage(betService.searchBetCashierPaginated(login, pageable), mapper::toDtoList)
+                PaginationUtils.convertEntityPageToDtoPage(betService.searchBetCashierPaginated(login, partner, pageable), mapper::toDtoList)
         );
     }
 
@@ -141,5 +143,29 @@ public class BetKenoController {
     @GetMapping("/events/odds/{game}")
     ResponseEntity<Collection<Object>> listEventOdds(@PathVariable String game){
         return ResponseEntity.ok(betService.listAllGameOdds(game.toLowerCase()));
+    }
+
+    @GetMapping("/cashier/{login}/{partner}/{start}/{end}")
+    ResponseEntity<List<BetKenoResponse>> listAllUserBetDated(@PathVariable String login, @PathVariable String partner,
+                                                                       @PathVariable LocalDateTime start, @PathVariable LocalDateTime end){
+        return ResponseEntity.ok(mapper.toDtoList(betService.listAllUserBetDated(login, partner, start, end)));
+    }
+
+    @GetMapping("/cashier/{login}/{partner}/room/{room}/{start}/{end}")
+    ResponseEntity<List<BetKenoResponse>> listAllUserBetRoomDated(@PathVariable String login, @PathVariable String partner
+            , @PathVariable String room, @PathVariable LocalDateTime start, @PathVariable LocalDateTime end){
+        return ResponseEntity.ok(mapper.toDtoList(betService.listAllUserBetRoomDated(login, partner, room, start, end)));
+    }
+
+    @GetMapping("/partner/{partner}/{start}/{end}")
+    ResponseEntity<List<BetKenoResponse>> listAllPartnerBetDated(@PathVariable String partner
+            , @PathVariable LocalDateTime start, @PathVariable LocalDateTime end){
+        return ResponseEntity.ok(mapper.toDtoList(betService.listAllPartnerBetDated(partner, start, end)));
+    }
+
+    @GetMapping("/partner/{partner}/room/{room}/{start}/{end}")
+    ResponseEntity<List<BetKenoResponse>> listAllPartnerBetRoomDated(@PathVariable String partner,@PathVariable String room
+            , @PathVariable LocalDateTime start, @PathVariable LocalDateTime end){
+        return ResponseEntity.ok(mapper.toDtoList(betService.listAllPartnerBetRoomDated(partner, room, start, end)));
     }
 }

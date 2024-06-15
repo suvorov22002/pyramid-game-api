@@ -38,4 +38,5 @@ public class BetKenoResponse {
     private String selection;
     private LocalDateTime createdAt;
     private List<SlipKenoResponse> slips;
+    private Double balance;
 }

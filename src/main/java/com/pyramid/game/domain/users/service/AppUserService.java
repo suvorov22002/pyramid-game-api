@@ -23,4 +23,7 @@ public interface AppUserService {
     @Modifying
     AppUser updateAppUserStatus(Long id, String status);
 
+    @Modifying
+    AppUser updateAppUserBalance(Long id, Double balance);
+
 }

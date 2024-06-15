@@ -202,14 +202,14 @@ public class BetKenoServiceImpl implements BetKenoService {
     }
 
     @Override
-    public List<BetKeno> searchBetCashier(String login) {
+    public List<BetKeno> searchBetCashier(String login, String partner) {
 
-        return betKenoRepo.findByCashierLoginIgnoreCase(login);
+        return betKenoRepo.findByCashierLoginIgnoreCaseAndCodePartnerIgnoreCase(login, partner);
     }
 
     @Override
-    public Page<BetKeno> searchBetCashierPaginated(String login, Pageable pageable) {
-        return betKenoRepo.findAllByCashierLoginOrderByCreatedAtDesc(login, pageable);
+    public Page<BetKeno> searchBetCashierPaginated(String login, String partner, Pageable pageable) {
+        return betKenoRepo.findAllByCashierLoginIgnoreCaseAndCodePartnerIgnoreCaseOrderByCreatedAtDesc(login, partner, pageable);
     }
 
     @Override
@@ -296,5 +296,25 @@ public class BetKenoServiceImpl implements BetKenoService {
         BetKeno betKeno = searchBetNumero(id);
         betKeno.setStatus(BetStatus.valueOf(status));
         return betKenoRepo.save(betKeno);
+    }
+
+    @Override
+    public List<BetKeno> listAllUserBetDated(String login, String partner, LocalDateTime start, LocalDateTime end) {
+        return betKenoRepo.findByCashierLoginIgnoreCaseAndCodePartnerIgnoreCaseAndCreatedAtBetween(login, partner, start, end);
+    }
+
+    @Override
+    public List<BetKeno> listAllUserBetRoomDated(String login, String partner, String salle, LocalDateTime start, LocalDateTime end) {
+        return betKenoRepo.findByCashierLoginIgnoreCaseAndCodePartnerIgnoreCaseAndSalleIgnoreCaseAndCreatedAtBetween(login, partner, salle, start, end);
+    }
+
+    @Override
+    public List<BetKeno> listAllPartnerBetDated(String partner, LocalDateTime start, LocalDateTime end) {
+        return betKenoRepo.findByCodePartnerIgnoreCaseAndCreatedAtBetween(partner, start, end);
+    }
+
+    @Override
+    public List<BetKeno> listAllPartnerBetRoomDated(String salle, String partner, LocalDateTime start, LocalDateTime end) {
+        return betKenoRepo.findBySalleIgnoreCaseAndCodePartnerIgnoreCaseAndCreatedAtBetween(salle, partner, start, end);
     }
 }

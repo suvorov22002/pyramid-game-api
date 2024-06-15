@@ -1,9 +1,11 @@
 package com.pyramid.game.domain.shift.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.pyramid.game.core.utils.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 
@@ -19,11 +21,15 @@ import java.util.List;
  */
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Shift {
-    
+@Entity(name = "PYRAM_SHIFT")
+public class Shift extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private int totalSlip;
     private int paidSlip;
     private int revoqSlip;
@@ -36,8 +42,9 @@ public class Shift {
     private double endBalance;
     private LocalDateTime endDate;
     private String user;
+    private String partner;
 
-    private Shift statistics(List<Shift> shifts) {
+    public static Shift statistics(List<Shift> shifts) {
 
         int totSlip = 0, paySlip = 0, revqSlip = 0;
         double totPayin = 0d, totPayout = 0d, totBalance = 0d, totRevoq = 0,
