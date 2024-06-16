@@ -8,10 +8,13 @@ import java.util.List;
 
 public interface ShiftService {
 
-    Shift createShift(String login, String partner, String salle, LocalDateTime start);
+    Shift createShift(Shift shift);
     List<Shift> allShift(String user, String partner);
     List<Shift> allShiftDated(String user, String partner, LocalDateTime start, LocalDateTime end);
-    Shift updateShift(Long id, Shift shift);
+    Shift updateShift(Shift shift);
+    Shift summarizeShift(Shift shift);
     Shift searchShift(Long id);
+    Shift searchShift(Shift shift);
+
 
 }

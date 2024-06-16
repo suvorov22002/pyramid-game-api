@@ -36,7 +36,7 @@ public class BetKeno extends BaseEntity {
     private String codeGame;
 
     @MandatoryField
-    private Long barcode;
+    private String barcode;
 
     @MandatoryField
     private Double montantMise;
@@ -74,6 +74,7 @@ public class BetKeno extends BaseEntity {
     private Integer numeroTicket;
     private Double montantGain = 0d; // possible montant gain
     private Integer archive = 0;
-
+    @Transient
+    private Double balance;
 
 }

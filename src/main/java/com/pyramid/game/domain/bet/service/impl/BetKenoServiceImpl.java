@@ -2,9 +2,11 @@ package com.pyramid.game.domain.bet.service.impl;
 
 import com.pyramid.game.core.config.Pari;
 import com.pyramid.game.core.utils.Constants;
+import com.pyramid.game.domain.bet.model.Bet;
 import com.pyramid.game.domain.bet.model.BetKeno;
 import com.pyramid.game.domain.bet.model.enums.BetStatus;
 import com.pyramid.game.domain.bet.repository.BetKenoRepository;
+import com.pyramid.game.domain.bet.repository.BetRepository;
 import com.pyramid.game.domain.bet.service.BetKenoService;
 import com.pyramid.game.domain.evenement.model.Evenement;
 import com.pyramid.game.domain.evenement.model.enums.EventStatus;
@@ -57,7 +59,7 @@ public class BetKenoServiceImpl implements BetKenoService {
     private final AppUserRepository appUserRepo;
     private final EnrollmentRepository enrollmentRepo;
     private final EvenementRepository evenementRepo;
-    private final SlipKenoRepository slipKenoRepo;
+    private final BetRepository betRepo;
     private final SlipKenoService slipKenoService;
     private final Pari pari;
 
@@ -116,7 +118,13 @@ public class BetKenoServiceImpl implements BetKenoService {
             throw new IllegalStateException(Constants.EVENT_NOT_UNKNOWNDRAW);
         }
 
-        // TODO: check cashier balance and bet amount threshold
+        var balance = user.getBalance();
+        if(bet.getMontantMise() > balance) {
+            throw new IllegalStateException(Constants.BALANCE_INSUFISCIENT);
+        }
+
+        user.setBalance(balance - bet.getMontantMise());
+        appUserRepo.save(user);
 
         String[] betSelections;
 
@@ -152,14 +160,24 @@ public class BetKenoServiceImpl implements BetKenoService {
         event.setCodeBonus(++codeBonus);
         evenementRepo.save(event);
 
-        bet.setCreatedAt(LocalDateTime.now());
+        var barcode = Constants.generateBarcode();
+        var creationDate = LocalDateTime.now();
+
+        Bet betControl = new Bet();
+        betControl.setCreatedAt(creationDate);
+        betControl.setBarcode(barcode);
+        betControl.setCodeGame(game.getDesignation());
+        betControl.setCodePartner(partner.getDesignation());
+
+        bet.setCreatedAt(creationDate);
         bet.setCodeGame(game.getDesignation());
         bet.setCodePartner(partner.getDesignation());
         bet.setSalle(salle.getDesignation());
         bet.setOdds(Double.valueOf(odd));
         bet.setNumeroTirage(event.getNumeroTirage());
-        bet.setBarcode(Constants.generateBarcode());
+        bet.setBarcode(barcode);
         bet.setCodeBonus(codeBonus);
+        bet.setBalance(user.getBalance());
 
         // Creation of slip
         SlipKeno slipKeno;
@@ -185,17 +203,20 @@ public class BetKenoServiceImpl implements BetKenoService {
 
         bet.setSlips(slipKenoService.createListSlip(slipKenos));
 
+        betRepo.save(betControl);
+
         return betKenoRepo.save(bet);
     }
 
     @Override
-    public BetKeno searchBetPartnerBarcode(String partner, Long barcode) {
-
+    public BetKeno searchBetPartnerBarcode(String partner, String barcode) {
+        /*
         partnerRepo.findPartnerByDesignation(partner).orElseThrow(
                 () -> new EntityNotFoundException(Constants.PARTNER_NOT_FOUND)
         );
+        */
 
-        return betKenoRepo.findByCodePartnerAndBarcode(partner, barcode).orElseThrow(
+        return betKenoRepo.findByCodePartnerAndBarcodeIgnoreCase(partner, barcode).orElseThrow(
                 () -> new EntityNotFoundException(Constants.BET_UNKNOWN)
         );
 
@@ -239,12 +260,6 @@ public class BetKenoServiceImpl implements BetKenoService {
     public Page<BetKeno> getBetPartnerRoomPaginated(String codePartner, String designation, Pageable pageable) {
         return betKenoRepo
                 .findAllByCodePartnerIgnoreCaseAndSalleIgnoreCaseOrderByCreatedAtDesc(codePartner, designation, pageable);
-    }
-
-    @Override
-    public Collection<Object> listAllGameOdds(String game) {
-
-        return pari.getListPari().get(game).values();
     }
 
     @Override

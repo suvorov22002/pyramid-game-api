@@ -1,9 +1,11 @@
 package com.pyramid.game.domain.bet.model;
 
+import com.pyramid.game.core.utils.BaseEntity;
 import com.pyramid.game.core.validation.MandatoryField;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDateTime;
 
@@ -15,20 +17,22 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@MappedSuperclass
-public abstract class Bet {
+@FieldNameConstants
+@Entity(name = "PYRAM_BET")
+public class Bet extends BaseEntity {
 
-    @MandatoryField
-    private LocalDateTime createdAt;
-    private String createdBy;
-    private LocalDateTime updatedAt;
-    private String updatedBy;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @MandatoryField
     private String codeGame;
 
     @MandatoryField
-    private Long barcode;
+    private String barcode;
+
+    @MandatoryField
+    private String codePartner;
 
     private Integer numeroTicket;
 

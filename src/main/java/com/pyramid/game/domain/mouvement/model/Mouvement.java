@@ -1,11 +1,11 @@
 package com.pyramid.game.domain.mouvement.model;
 
 import com.pyramid.game.core.utils.BaseEntity;
+import com.pyramid.game.core.validation.MandatoryField;
 import com.pyramid.game.domain.mouvement.model.enums.Operation;
 import com.pyramid.game.domain.users.model.AppUser;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 /**
@@ -16,6 +16,9 @@ import lombok.experimental.FieldNameConstants;
  */
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldNameConstants
 @Entity(name = "PYRAM_MOVEMENT")
 public class Mouvement extends BaseEntity {
@@ -28,6 +31,7 @@ public class Mouvement extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Operation operation;
     private Double balance = 0d;
+    @MandatoryField
     @ManyToOne
     @JoinColumn(name = "appuser_id")
     private AppUser appUser;

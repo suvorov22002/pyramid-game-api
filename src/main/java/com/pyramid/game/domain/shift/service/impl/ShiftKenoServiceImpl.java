@@ -2,6 +2,7 @@ package com.pyramid.game.domain.shift.service.impl;
 
 import com.pyramid.game.domain.bet.model.BetKeno;
 import com.pyramid.game.domain.bet.repository.BetKenoRepository;
+import com.pyramid.game.domain.shift.model.Shift;
 import com.pyramid.game.domain.shift.model.ShiftKeno;
 import com.pyramid.game.domain.shift.service.ShiftKenoService;
 import com.pyramid.game.domain.withdraw.model.Versement;
@@ -39,12 +40,13 @@ public class ShiftKenoServiceImpl implements ShiftKenoService {
                         login, partner, salle, start, end);
         var totPayout = versementList.stream().map(Versement::getMontantVers).reduce(Double::sum).orElse(0d);
 
-        return (ShiftKeno) ShiftKeno.builder()
-                .totalPayin(totPayin)
-                .totalSlip(betKenoList.size())
-                .totalPayout(totPayout)
-                .paidSlip(versementList.size())
-                .build();
+        ShiftKeno shiftKeno = new ShiftKeno();
 
+        shiftKeno.setTotalSlip(betKenoList.size());
+        shiftKeno.setPaidSlip(versementList.size());
+        shiftKeno.setTotalPayin(totPayin);
+        shiftKeno.setTotalPayout(totPayout);
+
+        return shiftKeno;
     }
 }

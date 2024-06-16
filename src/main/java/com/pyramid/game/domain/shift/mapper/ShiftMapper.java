@@ -24,6 +24,7 @@ public abstract class ShiftMapper {
 
     public abstract List<ShiftDto> toDtoList(List<Shift> shifts);
 
+    @Mapping(target = "totalBalance", expression = "java(resolveTotalBalance(shift))")
     public abstract ShiftDto toDto(Shift shift);
     public abstract Shift toEntity(ShiftDto request);
 
@@ -31,4 +32,8 @@ public abstract class ShiftMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
     public abstract Shift update(Shift source, @MappingTarget Shift target);
+
+    protected Double resolveTotalBalance(Shift shift) {
+        return shift.getTotalPayin() - shift.getTotalPayout();
+    }
 }

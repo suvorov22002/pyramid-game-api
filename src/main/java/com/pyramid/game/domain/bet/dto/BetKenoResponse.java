@@ -18,7 +18,7 @@ import java.util.List;
 public class BetKenoResponse {
     private Long id;
     private String codeGame;
-    private Long barcode;
+    private String barcode;
     private String codePartner;
     private String salle;
     private String cashierLogin;

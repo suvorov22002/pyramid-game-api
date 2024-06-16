@@ -14,7 +14,7 @@ import java.util.List;
 public interface BetKenoService {
 
     BetKeno createBet(BetKeno bet);
-    BetKeno searchBetPartnerBarcode(String partner, Long barcode);
+    BetKeno searchBetPartnerBarcode(String partner, String barcode);
     List<BetKeno> searchBetCashier(String login, String partner);
     Page<BetKeno> searchBetCashierPaginated(String login, String partner, Pageable pageable);
     BetKeno searchBetNumero(Long numero);
@@ -22,7 +22,6 @@ public interface BetKenoService {
     Page<BetKeno> getBetPartnerPaginated(String codePartner, Pageable pageable);
     List<BetKeno> listAllBetPartnerRoom(String codePartner, String designation);
     Page<BetKeno> getBetPartnerRoomPaginated(String codePartner, String designation, Pageable pageable);
-    Collection<Object> listAllGameOdds(String game);
     void deleteBetKeno(Long id);
     @Modifying
     BetKeno updateBetKenoArchive(Long id);

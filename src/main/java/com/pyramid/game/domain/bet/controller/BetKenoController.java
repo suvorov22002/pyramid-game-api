@@ -76,7 +76,7 @@ public class BetKenoController {
     }
 
     @GetMapping("/partner/{partner}/barcode/{barcode}")
-    ResponseEntity<BetKenoResponse> searchBetKenoPartnerBarcode(@PathVariable String partner, @PathVariable Long barcode) {
+    ResponseEntity<BetKenoResponse> searchBetKenoPartnerBarcode(@PathVariable String partner, @PathVariable String barcode) {
         return ResponseEntity.ok(
                 mapper.toDto(betService.searchBetPartnerBarcode(partner, barcode))
         );
@@ -138,11 +138,6 @@ public class BetKenoController {
         return ResponseEntity.ok(
                 mapper.toDto(betService.updateStatus(id, status))
         );
-    }
-
-    @GetMapping("/events/odds/{game}")
-    ResponseEntity<Collection<Object>> listEventOdds(@PathVariable String game){
-        return ResponseEntity.ok(betService.listAllGameOdds(game.toLowerCase()));
     }
 
     @GetMapping("/cashier/{login}/{partner}/{start}/{end}")

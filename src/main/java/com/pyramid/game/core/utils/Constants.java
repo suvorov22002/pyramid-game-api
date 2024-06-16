@@ -36,7 +36,10 @@ public class Constants {
     public static final String BET_UNKNOWN = "Bet not recognize";
     public static final String WITHDRAW_NOT_FOUND = "Ticket de paiement introuvable";
     public static final String SHIFT_NOT_FOUND = "Shift not open yet.";
+    public static final String SHIFT_OPEN = "Current shift open.";
+    public static final String SHIFT_NOT_OPEN = "No shift opened.";
     public static final String MOUVEMENT_NOT_FOUND = "Movement not open yet.";
+    public static final String BALANCE_INSUFISCIENT = "Balance insufiscient.";
     public static final String STAT_KENO = """
                 SELECT COUNT(id) AS totalSlip,  COALESCE(sum(montant_mise),0) AS totalPayin 
                 FROM PYRAM_BETKENO 
@@ -53,7 +56,7 @@ public class Constants {
         return sb.toUpperCase();
     }
 
-    public static Long generateBarcode() {
-        return 10_000_000_000_000L - Instant.now().toEpochMilli();
+    public static String generateBarcode() {
+        return String.valueOf(10_000_000_000_000L - Instant.now().toEpochMilli());
     }
 }

@@ -1,5 +1,6 @@
 package com.pyramid.game.domain.shift.dto;
 
+import com.pyramid.game.core.validation.MandatoryField;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,9 +27,16 @@ public class ShiftDto {
     private double totalBalance;
     private double totalRevoq;
     private LocalDateTime startDate;
+    @MandatoryField
     private double startBalance;
     private double endBalance;
     private LocalDateTime endDate;
-    private String user;
+    @MandatoryField
+    private String login;
+    @MandatoryField
     private String partner;
+    @MandatoryField
+    private String salle;
+    private String shiftStatus;
+
 }

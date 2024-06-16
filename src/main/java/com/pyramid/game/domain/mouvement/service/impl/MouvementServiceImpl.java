@@ -6,7 +6,6 @@ import com.pyramid.game.domain.mouvement.model.Mouvement;
 import com.pyramid.game.domain.mouvement.model.enums.Operation;
 import com.pyramid.game.domain.mouvement.repository.MouvementRepository;
 import com.pyramid.game.domain.mouvement.service.MouvementService;
-import com.pyramid.game.domain.partner.model.Partner;
 import com.pyramid.game.domain.partner.repository.PartnerRepository;
 import com.pyramid.game.domain.users.model.AppUser;
 import com.pyramid.game.domain.users.repository.AppUserRepository;

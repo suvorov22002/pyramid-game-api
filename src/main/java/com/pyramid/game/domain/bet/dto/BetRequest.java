@@ -8,19 +8,11 @@ public record BetRequest(
         @MandatoryField
         String codeGame,
         @MandatoryField
-        Double montantMise,
-        @MandatoryField
         String codePartner,
-        Long barcode,
         @MandatoryField
-        String cashierLogin,
+        String barcode,
         @MandatoryField
         Integer numeroTirage,
-        Integer codeBonus,
-        Integer numeroTicket,
-        LocalDateTime heureMise,
-        Double montantGain,
-        Integer coefficient,
-        Integer multipleRound
+        Integer numeroTicket
 ) {
 }

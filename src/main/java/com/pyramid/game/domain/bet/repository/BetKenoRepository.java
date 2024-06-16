@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Repository
 public interface BetKenoRepository extends JpaRepository<BetKeno, Long> {
-    Optional<BetKeno> findByCodePartnerAndBarcode(String codePartner, Long barcode);
+    Optional<BetKeno> findByCodePartnerAndBarcodeIgnoreCase(String codePartner, String barcode);
     List<BetKeno> findByCashierLoginIgnoreCaseAndCodePartnerIgnoreCase(String login, String partner);
     Optional<BetKeno> findByNumeroTicket(Integer numeroTicket);
     List<BetKeno> findByNumeroTirage(Integer numeroTirage);
