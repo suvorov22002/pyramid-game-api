@@ -74,10 +74,17 @@ public class SalleController {
     }
 
     @GetMapping("/partner/{partnerCode}/{code}")
-    ResponseEntity<SalleResponse> selectPartnerUserLogin(@PathVariable("partnerCode") String partnerCode,
+    ResponseEntity<SalleResponse> selectPartnerRoomCode(@PathVariable("partnerCode") String partnerCode,
                                                            @PathVariable("code") String code) {
         return ResponseEntity
                 .ok(mapper.toDto(salleService.searchPartnerRoomCode(partnerCode, code)));
+    }
+
+    @GetMapping("/partner/{partnerCode}/designation/{name}")
+    ResponseEntity<SalleResponse> selectPartnerDesignation(@PathVariable("partnerCode") String partnerCode,
+                                                         @PathVariable("name") String name) {
+        return ResponseEntity
+                .ok(mapper.toDto(salleService.searchPartnerDesignation(partnerCode, name)));
     }
 
     @PutMapping("/{id}")

@@ -117,4 +117,11 @@ public class AppUserServiceImplement implements AppUserService {
         existingUser.setEnabled(Boolean.valueOf(status));
         return appUserRepo.save(existingUser);
     }
+
+    @Override
+    public AppUser updateAppUserBalance(Long id, Double balance) {
+        AppUser existingUser = searchUser(id);
+        existingUser.setBalance(balance);
+        return appUserRepo.save(existingUser);
+    }
 }

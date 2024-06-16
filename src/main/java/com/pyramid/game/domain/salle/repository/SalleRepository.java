@@ -23,6 +23,7 @@ public interface SalleRepository extends JpaRepository<Salle, Long> {
     Page<Salle> findSalleByPartnerOrderByCreatedAtDesc(Partner partner, Pageable pageable);
     List<Salle> findSalleByCodeSalleLikeIgnoreCase(String codeSalle);
     Optional<Salle> findSalleByPartnerAndCodeSalle(Partner partner, String codeSalle);
+    Optional<Salle> findSalleByPartnerAndDesignation(Partner partner, String designation);
     Optional<Salle> findSalleByCodeSalle(String codeSalle);
     List<Salle> findSalleByPartner(Partner partner);
 }

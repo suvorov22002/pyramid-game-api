@@ -52,4 +52,5 @@ public class AppUser extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "partner_id")
     private Partner partner;
+    private Double balance = 0d;
 }

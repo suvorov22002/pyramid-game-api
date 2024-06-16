@@ -1,7 +1,6 @@
 package com.pyramid.game.domain.evenement.dto;
 
 import com.pyramid.game.core.validation.MandatoryField;
-import com.pyramid.game.domain.evenement.model.enums.EventStatus;
 
 import java.time.LocalDateTime;
 

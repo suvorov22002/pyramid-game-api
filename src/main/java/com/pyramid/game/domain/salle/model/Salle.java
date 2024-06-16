@@ -19,7 +19,7 @@ import lombok.experimental.FieldNameConstants;
 @Getter
 @Setter
 @FieldNameConstants
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"codeSalle", "partner_id"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"designation", "partner_id"}))
 @Entity(name = "PYRAM_SALLE")
 public class Salle extends BaseEntity {
 
@@ -30,6 +30,7 @@ public class Salle extends BaseEntity {
     @MandatoryField
     private String codeSalle;
 
+    @MandatoryField
     private String designation;
 
     private String localisation;
